@@ -10,7 +10,8 @@ This project is a face recognition-based student attendance system. It uses a pr
 - Stores attendance data in a MySQL database.
 - Prevents "unknown" faces from being marked.
 
-  <img width="592" alt="image" src="https://github.com/user-attachments/assets/1de5e58b-c340-491e-858a-f98469c38b2f" />
+  <img width="300" alt="image" src="https://github.com/user-attachments/assets/1de5e58b-c340-491e-858a-f98469c38b2f" />
+  
 
   <img width="270" alt="image" src="https://github.com/user-attachments/assets/6c154fb0-5c36-477f-a8f0-84e14604ff92" />
 
