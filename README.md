@@ -184,10 +184,12 @@ python attendance_system.py
 - **Google Teachable Machine** for simplifying model training.
 - **OpenCV and TensorFlow** for their powerful libraries.
 - **MySQL** for reliable database management.
-- 
+  
 **Tips for Adding README to GitHub**
 
 1.Save the README as README.md in the root folder of your repository.
+
 2.Format sections with Markdown (use #, *, and backticks for headings, bullet points, and code blocks).
+
 3.Commit and push the changes to your GitHub repository.
 
