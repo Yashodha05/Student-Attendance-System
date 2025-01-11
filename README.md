@@ -1,6 +1,6 @@
-# Employee Attendance System using Face Recognition
+# Student Attendance System using Face Recognition
 
-This project is a face recognition-based employee attendance system. It uses a pre-trained model to identify employees and marks their attendance in a MySQL database. The system is simple, efficient, and designed to be user-friendly.
+This project is a face recognition-based student attendance system. It uses a pre-trained model to identify students and marks their attendance in a MySQL database. The system is simple, efficient, and designed to be user-friendly.
 
 **Features**
 
@@ -9,6 +9,10 @@ This project is a face recognition-based employee attendance system. It uses a p
 - Ensures attendance is recorded only once per person per day.
 - Stores attendance data in a MySQL database.
 - Prevents "unknown" faces from being marked.
+
+  <img width="592" alt="image" src="https://github.com/user-attachments/assets/1de5e58b-c340-491e-858a-f98469c38b2f" />
+
+  <img width="270" alt="image" src="https://github.com/user-attachments/assets/6c154fb0-5c36-477f-a8f0-84e14604ff92" />
 
 **Technologies Used**
 
@@ -46,13 +50,69 @@ cd employee-attendance-system
 
 pip install -r requirements.txt
 
-### Step 3: Setup MySQL Database
-1. Open MySQL Workbench or any database client.
-2. Create a database named `attendance_system`.
+**Step 3: Train Your Model on Google Teachable Machine**
+
+1. Open [Google Teachable Machine](https://teachablemachine.withgoogle.com/).
+
+  ![Screenshot (20)](https://github.com/user-attachments/assets/588a1d13-0c90-4716-824c-f6d110561620)
+
+2. Click on **Get Started** > **Image Project** > **Standard Image Model**.
+
+   ![Screenshot (21)](https://github.com/user-attachments/assets/10d6cb9d-8e53-4644-b625-e6b1d51a5504)
+
+   ![Screenshot (22)](https://github.com/user-attachments/assets/a06c8c31-8337-4d75-8827-9dc98f5a2d29)
+
+
+3. **Add Classes**:
+
+   - Create one class for each person (e.g., "Alice", "Bob").
+   - Add one class named "Unknown".
+  
+     ![Screenshot (23)](https://github.com/user-attachments/assets/d0ae219c-1bc5-4647-a81e-09dc875ccc39)
+
+4.. **Capture Training Images**:
+
+   - Use your webcam to capture images for each person.
+   - Ensure good lighting and a variety of poses.
+
+   ![6](https://github.com/user-attachments/assets/e9aa2a88-3a1b-4ab0-8925-a5bacde21620)
+
+5. **Train the Model**:
+
+   - Click on **Train Model**.
+     
+<img width="193" alt="image" src="https://github.com/user-attachments/assets/e11670c1-2638-4b6f-84c1-0230e30de0b1" />
+
+     
+6. **Export the Model**:
+
+   - After training, click **Export Model** > **TensorFlow**.
+
+<img width="236" alt="image" src="https://github.com/user-attachments/assets/ba35a117-8957-45dd-9888-513026315763" />
+
+   - Download the files:
+     - `keras_Model.h5` (rename it to `keras_Model1.h5`).
+     - `labels.txt` (rename it to `labels1.txt`).
+
+       <img width="616" alt="image" src="https://github.com/user-attachments/assets/6b2b7168-419b-41d9-a3eb-2a35e7ef3a92" />
+
+8. Extract and Place both files in the project directory.
+
+   <img width="551" alt="image" src="https://github.com/user-attachments/assets/6f51652a-e114-416b-b80b-1bccf5ac62b3" />
+
+
+### Step 4: Setup MySQL Database
+
+1. Install MySQL:
+   - Download and install [MySQL](https://dev.mysql.com/downloads/installer/).
+2. Open MySQL Workbench or a terminal.
+3. Create a database:
+
+<img width="482" alt="image" src="https://github.com/user-attachments/assets/2b661f2c-8ee6-4056-87f1-2915c1339ef2" />
 
 CREATE DATABASE attendance_system;
 
-3.Create a table for storing attendance
+4.Create a table for storing attendance
 
 CREATE TABLE attendance (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,35 +122,48 @@ CREATE TABLE attendance (
     time TIME
 );
 
-**Step 4: Prepare the Model**
+<img width="680" alt="image" src="https://github.com/user-attachments/assets/b9c87bdb-b450-443d-8a7d-9017a3d6ec49" />
 
-1.Train a face recognition model using Google Teachable Machine.
-2.Download the model files (keras_Model1.h5 and labels1.txt).
-3.Place these files in the project directory.
+5. Update the connection details in `attendance_system.py`:
+conn = mysql.connector.connect(
+    host="localhost",
+    user="your_mysql_username",
+    password="your_mysql_password",
+    database="attendance_system"
+)
 
-**Step 5: Run the Program**
+<img width="685" alt="image" src="https://github.com/user-attachments/assets/dc20b27a-4261-4a4b-b6c6-af1f9777c61c" />
 
-1.Open the project folder in your Python IDE (e.g., PyCharm).
-2.Run the script
+#### **Step 5: Connect Webcam and Run the Program**
+
+1. Open the project in your Python IDE (e.g., PyCharm).
+2. Ensure your webcam is functional.
+3. Run the script:
 
 python attendance_system.py
 
-3.Allow the script to access your webcam.
-4.Observe the output on the terminal and check the database for attendance records.
+![Screenshot (27)](https://github.com/user-attachments/assets/d32dfbca-b3c4-4c25-a087-75e1a5aa9389)
 
-**Step 6: Customize**
+4. Follow the terminal output:
+- The system will detect and recognize faces.
+- Attendance will be marked in the MySQL database.
 
-1.Update host, user, and password fields in the database connection code with your MySQL credentials.
+![Screenshot (26)](https://github.com/user-attachments/assets/d31c2465-a5d5-4ebf-88e4-323f6819687d)
 
-**7. How to Use**
+<img width="523" alt="image" src="https://github.com/user-attachments/assets/eccc63c1-19ec-4860-ac07-7250822f42de" />
 
-1. Start the program by running the Python script.
+
+**How to Use**
+
+1. Start the program.
 2. Stand in front of the webcam.
-3. Ensure your face is detected and identified.
-4. Check the terminal for attendance updates.
-5. View recorded attendance in the MySQL database.
+3. Ensure your face is detected and identified (check terminal output).
+4. The system will mark your attendance if:
+   - Your face is recognized with confidence >95%.
+   - Attendance has not already been marked for today.
+5. Check the attendance records in the MySQL database.
 
-**8.Troubleshooting**
+**Troubleshooting**
 
 1. **Error: Camera not accessible**
    - Ensure your webcam is connected and functioning.
@@ -107,10 +180,10 @@ python attendance_system.py
 
 **Acknowledgments**
 
-- Google Teachable Machine for model training.
-- OpenCV and TensorFlow for computer vision and machine learning.
-- [Your Name] for developing the project.
-
+- **Google Teachable Machine** for simplifying model training.
+- **OpenCV and TensorFlow** for their powerful libraries.
+- **MySQL** for reliable database management.
+- 
 **Tips for Adding README to GitHub**
 
 1.Save the README as README.md in the root folder of your repository.
